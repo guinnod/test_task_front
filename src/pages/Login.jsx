@@ -24,47 +24,49 @@ export const Login = () => {
     });
     const INPUT_SIZE = 'large';
     return (
-        <main className="flex flex-col h-full justify-center gap-10">
+        <main className="flex flex-col h-full justify-center gap-10 items-center">
             <Logo />
-            <Form onFinish={formik.submitForm} className="flex flex-col items-center gap-2">
+            <div className="w-full max-w-sm">
+            <Form onFinish={formik.submitForm} className="flex flex-col items-center gap-2 w-full px-10">
                 <Form.Item
                     name="email"
                     validateStatus={formik.errors.email && formik.touched.email ? "error" : ""}
                     help={formik.touched.email && formik.errors.email}
+                    className="w-full"
                 >
                     <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         prefix={<UserOutlined />} placeholder="E-mail" aria-autocomplete="none"
-                        size={INPUT_SIZE}
-                        className="w-80" />
+                        size={INPUT_SIZE} />
                 </Form.Item>
                 <Form.Item
                     name="password"
                     validateStatus={formik.errors.password && formik.touched.password ? "error" : ""}
                     help={formik.touched.password ? formik.errors.password : ""}
+                    className="w-full"
                 >
-                    <Input
+                    <Input.Password
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         prefix={<LockOutlined />} placeholder="Password"
-                        size={INPUT_SIZE}
-                        className="w-80" />
+                        size={INPUT_SIZE} />
                 </Form.Item>
 
-                <Form.Item>
-                    <Button className="mt-2 w-80 bg-sky-400 text-white hover:bg-sky-500" htmlType='submit'
+                <Form.Item className="w-full">
+                    <Button className="mt-2 bg-sky-400 text-white hover:bg-sky-500 w-full" htmlType='submit'
                         type='ghost'
                         size={INPUT_SIZE}>Log in</Button>
                 </Form.Item>
-                <div className="w-80">
-                <Link>
-                    <Button type="link" className="p-0">
-                        Don't have an account? Register here
-                    </Button>
-                </Link>
+                <div className="w-full">
+                    <Link to="/register">
+                        <Button type="link" className="p-0 whitespace-break-spaces">
+                            Don't have an account? Register here
+                        </Button>
+                    </Link>
                 </div>
             </Form>
+            </div>
         </main>
     )
 }

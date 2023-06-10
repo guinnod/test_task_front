@@ -1,57 +1,53 @@
 import { Button, Form, Input } from 'antd';
-import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { useFormik } from "formik"
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import * as Yup from "yup";
 import { useRef, useState } from 'react';
+import { useFormik } from 'formik';
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string().email("Incorrect email format!").required("Please enter your email!"),
+    password: Yup.string().min(8, "Password length should be at least 8!")
+        .max(24, "Password length should be at most 24!").required("Please enter your password!")
+});
 
 export const Login = () => {
-    const passwordSchema = Yup.string().min(8, "The password length should be at least 8 characters").max(24, "The password length should be at least 24 characters")
-    let pass = useRef(null);
-    const printPass = async () => {
-        const res = await passwordSchema.isValid(pass.current.input.value)
-        setIsPasswordValid(res ? "success" : "error")
-        setHelpText(res ? "" : "Password length should be between 8 and 24!")
-    }
-    const [isPasswordValid, setIsPasswordValid] = useState("success");
-    const [helpText, setHelpText] = useState("");
+
+    const formik = useFormik({
+        initialValues: {
+            email: "", password: ""
+        },
+        validationSchema: validationSchema,
+        validateOnBlur: true,
+        validateOnChange: false,
+        onSubmit: () => { console.log('Finish!'); }
+    });
+
     return (
         <main>
-            <Form onFinish={()=>{console.log("Finish")}}>
+            <Form onFinish={formik.submitForm}>
                 <Form.Item
                     name="email"
-                    rules={[
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                    ]}>
+                    validateStatus={formik.errors.email && formik.touched.email ? "error" : ""}
+                    help={formik.touched.email && formik.errors.email}
+                >
                     <Input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                         prefix={<UserOutlined />} placeholder="E-mail" aria-autocomplete="none" />
                 </Form.Item>
                 <Form.Item
                     name="password"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                    ]}
-                    validateStatus={isPasswordValid}
-                    help={helpText}
+                    validateStatus={formik.errors.password && formik.touched.password ? "error" : ""}
+                    help={formik.touched.password ? formik.errors.password : ""}
                 >
-                    <Input.Password
-                        prefix={<LockOutlined />}
-                        placeholder="Password"
-                        onChange={printPass}
-                        ref={pass}
-                    />
+                    <Input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        prefix={<LockOutlined />} placeholder="Password" />
                 </Form.Item>
+
                 <Form.Item>
-                    <Button disabled={isPasswordValid=="error"} htmlType='submit'>Log in</Button>
+                    <Button htmlType='submit'>Log in</Button>
                 </Form.Item>
             </Form>
         </main>

@@ -1,7 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import * as Yup from "yup";
-import { useRef, useState } from 'react';
 import { useFormik } from 'formik';
 
 const validationSchema = Yup.object().shape({
@@ -21,10 +20,10 @@ export const Login = () => {
         validateOnChange: false,
         onSubmit: () => { console.log('Finish!'); }
     });
-
+    const INPUT_SIZE = 'large';
     return (
         <main>
-            <Form onFinish={formik.submitForm}>
+            <Form onFinish={formik.submitForm} className="flex flex-col items-center gap-2">
                 <Form.Item
                     name="email"
                     validateStatus={formik.errors.email && formik.touched.email ? "error" : ""}
@@ -33,7 +32,9 @@ export const Login = () => {
                     <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        prefix={<UserOutlined />} placeholder="E-mail" aria-autocomplete="none" />
+                        prefix={<UserOutlined />} placeholder="E-mail" aria-autocomplete="none"
+                        size={INPUT_SIZE} 
+                        className="w-80"/>
                 </Form.Item>
                 <Form.Item
                     name="password"
@@ -43,11 +44,15 @@ export const Login = () => {
                     <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        prefix={<LockOutlined />} placeholder="Password" />
+                        prefix={<LockOutlined />} placeholder="Password"
+                        size={INPUT_SIZE} 
+                        className="w-80"/>
                 </Form.Item>
 
                 <Form.Item>
-                    <Button htmlType='submit'>Log in</Button>
+                    <Button className="w-80 bg-sky-400 text-white hover:bg-sky-500" htmlType='submit' 
+                    type='ghost'
+                    size={INPUT_SIZE}>Log in</Button>
                 </Form.Item>
             </Form>
         </main>

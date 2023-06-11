@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
-import { Layout } from "./components/molecules/Layout"
-import { Protected } from "./components/molecules/Protected"
+import { HomeLayout } from "@components/molecules/HomeLayout"
+import { Protected } from "@components/molecules/Protected"
 import { Register } from "@pages/Register"
 import { Home } from "@pages/Home"
 import { NotFound } from "@pages/NotFound"
@@ -11,9 +11,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
+      <Route path="/" element={<HomeLayout />}>
         <Route element={<Protected />}>
           <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />

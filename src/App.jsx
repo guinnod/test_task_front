@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom"
-import { HomeLayout } from "@components/molecules/HomeLayout"
-import { Protected } from "@components/molecules/Protected"
-import { Register } from "@pages/Register"
-import { Home } from "@pages/Home"
-import { NotFound } from "@pages/NotFound"
-import { Login } from "@pages/Login"
-import { Profile } from "@pages/Profile"
+import { HomeLayout } from "@components/templates/HomeLayout"
+import { Protected } from "@components/templates/Protected"
+import { Register } from "@components/pages/Register"
+import { Home } from "@components/pages/Home"
+import { NotFound } from "@components/pages/NotFound"
+import { Login } from "@components/pages/Login"
+import { Profile } from "@components/pages/Profile"
 
 function App() {
 
@@ -18,8 +18,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

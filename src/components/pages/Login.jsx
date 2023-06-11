@@ -2,7 +2,7 @@ import { Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
-import { Logo } from '@components/atoms/Logo';
+import { Logo } from '@components/molecules/Logo';
 import { Link } from 'react-router-dom';
 
 const validationSchema = Yup.object().shape({

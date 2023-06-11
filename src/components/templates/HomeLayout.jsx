@@ -2,7 +2,7 @@ import { Layout, Menu } from "antd";
 import { HomeOutlined, UserOutlined, LogoutOutlined} from '@ant-design/icons';
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { LogoInline } from "@components/atoms/Logo";
+import { LogoInline } from "@components/molecules/Logo";
 import useScreenType from "react-screentype-hook";
 const { Header, Sider, Content, Footer } = Layout
 export const HomeLayout = () => {

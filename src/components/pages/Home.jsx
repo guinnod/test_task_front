@@ -1,5 +1,9 @@
+import { PostCreator } from "@components/molecules/PostCreator"
+
 export const Home = () => {
     return (
-        <main>Home</main>
+        <main>Home
+            <PostCreator />
+        </main>
     )
 }

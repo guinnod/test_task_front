@@ -1,6 +1,7 @@
 import { Avatar, List, Menu, Typography } from "antd";
 import { UserOutlined, LikeOutlined, SolutionOutlined } from '@ant-design/icons';
 import { EditablePost, Post } from "@components/molecules/Post";
+import { useState } from "react";
 
 export const Profile = () => {
   const items = [

@@ -1,4 +1,4 @@
-import { Button, Layout, Menu } from "antd";
+import { Button, Input, Layout, Menu, Space } from "antd";
 import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -42,7 +42,7 @@ export const HomeLayout = () => {
       <Layout className="h-full">
         <Header className="flex items-center justify-between px-5 bg-zinc-50 border-0 border-b border-solid border-gray-200">
           <LogoInline />
-          <Button type="primary" size="large" onClick={tooglePostCreate}>Tweet</Button>
+          <Button type="primary" size={isMobile ? "medium" : "large"} onClick={tooglePostCreate}>Tweet</Button>
         </Header>
         <Layout>
           <Sider theme={theme}

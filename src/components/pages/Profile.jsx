@@ -1,14 +1,14 @@
 import { Avatar, List, Menu, Typography } from "antd";
 import { UserOutlined, LikeOutlined, SolutionOutlined } from '@ant-design/icons';
 import { EditablePost, Post } from "@components/molecules/Post";
-import { useState } from "react";
+import useScreenType from "react-screentype-hook";
 
 export const Profile = () => {
   const items = [
     {
       key: '1',
       icon: <SolutionOutlined />,
-      label: <span onClick={() => { console.log('aaa'); }}>My posts</span>
+      label: <span>My posts</span>
     },
     {
       key: '2',
@@ -42,6 +42,7 @@ export const Profile = () => {
         'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
     },
   ];
+  const { isMobile } = useScreenType();
   return (
     <section className="pt-5 px-5">
       <Avatar size={92} className="flex items-center justify-center" icon={<UserOutlined />} />
@@ -51,7 +52,7 @@ export const Profile = () => {
       <Menu mode="horizontal" defaultSelectedKeys={['1']} items={items} className="bg-zinc-50" />
       <List
         itemLayout="vertical"
-        className="px-10 pt-5"
+        className={`pt-5 ${isMobile ? 'px-0' : 'px-10'}`}
         dataSource={posts}
         renderItem={(item) => (<EditablePost item={item} />)}
       />

@@ -1,7 +1,6 @@
 import { InfiniteScroller } from "@components/organisms/InfiniteScroller"
 import Search from "antd/es/input/Search";
 
-
 export const Home = () => {
     const posts = [
         {
@@ -40,15 +39,15 @@ export const Home = () => {
                 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
         },
     ];
-    
+
     return (
-        <main>
+        <main className="max-h-full overflow-y-scroll">
             <div className="mx-10 mt-5 max-w-lg">
                 <Search
                     enterButton size="large"
                     placeholder="Search for posts"
                     className="w-full max-w-96"
-                    />
+                />
             </div>
             <InfiniteScroller posts={posts} />
         </main>

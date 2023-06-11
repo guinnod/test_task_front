@@ -40,11 +40,22 @@ export const Profile = () => {
       avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=0`,
       content:
         'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+    }, {
+      title: `ant design part`,
+      avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=0`,
+      content:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+    },
+    {
+      title: `ant design part`,
+      avatar: `https://xsgames.co/randomusers/avatar.php?g=pixel&key=0`,
+      content:
+        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
     },
   ];
   const { isMobile } = useScreenType();
   return (
-    <section className="pt-5 px-5">
+    <section className="pt-5 px-5 overflow-y-scroll max-h-full">
       <Avatar size={92} className="flex items-center justify-center" icon={<UserOutlined />} />
       <Typography.Title level={3} className="mt-5">
         Alex Benzema

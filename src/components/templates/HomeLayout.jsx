@@ -1,8 +1,8 @@
-import { Button, Input, Layout, Menu, Space } from "antd";
+import { Button, Layout, Menu } from "antd";
 import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { LogoInline } from "@components/molecules/Logo";
+import { LogoInline } from "@components/atoms/Logo";
 import useScreenType from "react-screentype-hook";
 import { PostCreator } from "@components/molecules/PostCreator";
 const { Header, Sider, Content, Footer } = Layout
@@ -36,6 +36,10 @@ export const HomeLayout = () => {
   const tooglePostCreate = () => {
     setIsPostCreate(!isPostCreate);
   }
+
+  useEffect(() => {
+    // document.getElementById("scrolledContent").scrollTo(0, 0);
+  }, [location])
   return (
     <>
       <PostCreator open={isPostCreate} onCancel={tooglePostCreate} />
@@ -56,7 +60,7 @@ export const HomeLayout = () => {
               className="bg-zinc-50 h-full"
             />
           </Sider>
-          <Content className="overflow-y-scroll bg-zinc-50">
+          <Content className="bg-zinc-50">
             <Outlet />
           </Content>
         </Layout>

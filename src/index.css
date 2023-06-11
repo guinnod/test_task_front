@@ -5,3 +5,20 @@
 #root {
     height: 100%;
 }
+
+:root {
+    --scrollbar-thumb-color: #b2a9a9;
+    --scrollbar-track-color: #f1f1f1;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--scrollbar-track-color);
+}

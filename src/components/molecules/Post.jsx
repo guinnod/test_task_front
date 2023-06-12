@@ -21,20 +21,16 @@ export const Post = ({ item, isEditable }) => {
                     text={item.likes} key="list-vertical-like-o" />,
             ]} >
             <List.Item.Meta
-                avatar={< Avatar src={item.avatar} />}
+                avatar={< Avatar src={'https://xsgames.co/randomusers/avatar.php?g=pixel&key=0'} />}
                 title={<a href={item.href}>{item.title}</a>}
             />
-            {isEditable?.paragraph ?? item.content}
+            {isEditable?.paragraph ?? item.text}
             {isEditable?.delete}
         </List.Item>
     );
 };
 
-export const EditablePost = ({ item }) => {
-    const confirm = () =>
-        new Promise((resolve) => {
-            setTimeout(() => resolve(null), 3000);
-        });
+export const EditablePost = ({ item, confirmDelete }) => {
     const [spinning, setSpinning] = useState(false)
     const deletePost = () => {
         setSpinning(true)
@@ -42,7 +38,7 @@ export const EditablePost = ({ item }) => {
     }
     const paragraph = <Paragraph editable={{
         onEnd: () => { deletePost(); }
-    }}>{item.content}</Paragraph>;
+    }}>{item.text}</Paragraph>;
     const { isMobile } = useScreenType();
 
     const deleteBlock =
@@ -54,7 +50,7 @@ export const EditablePost = ({ item }) => {
             <Popconfirm
                 title="Confrim"
                 description="Delete this post?"
-                onConfirm={confirm}
+                onConfirm={() => { confirmDelete(item.pk) }}
                 onOpenChange={() => console.log('open change')}
             >
                 <Button size='small' danger>Delete</Button>

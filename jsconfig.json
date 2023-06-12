@@ -14,9 +14,6 @@
             "~hooks/*": [
                 "src/hooks/*"
             ],
-            "~pages/*": [
-                "src/components/pages/*"
-            ],
             "~store/*": [
                 "src/store/*"
             ],
@@ -34,9 +31,6 @@
             ],
             "hooks/*": [
                 "src/hooks/*"
-            ],
-            "pages/*": [
-                "src/components/pages/*"
             ],
             "store/*": [
                 "src/store/*"
@@ -56,23 +50,17 @@
             "@hooks/*": [
                 "src/hooks/*"
             ],
-            "@pages/*": [
-                "src/components/pages/*"
-            ],
             "@store/*": [
                 "src/store/*"
             ],
             "@/*": [
                 "src/*"
             ],
-            "@organisms/*": [
-                "src/components/organisms/*"
-            ],
-            "@templates/*": [
-                "src/components/templates/*"
-            ],
             "@services/*": [
                 "src/services/*"
+            ],
+            "@context/*": [
+                "src/context/*"
             ]
         }
     }

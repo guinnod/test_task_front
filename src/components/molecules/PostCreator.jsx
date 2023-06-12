@@ -35,7 +35,7 @@ export const PostCreator = ({ open, onCancel }) => {
                 createPost(values)
                     .then(res => {
                         messageApi.open({
-                            type: 'sucess',
+                            type: 'success',
                             content: res.data,
                             duration: 3
                         });

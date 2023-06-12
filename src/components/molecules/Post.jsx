@@ -5,14 +5,24 @@ import useScreenType from 'react-screentype-hook';
 import { IconText } from '@components/atoms/IconText';
 import { HomeContext } from '@/context/HomeContext';
 import { useContext, useState } from 'react';
+import { likePost } from '@api/postAPI';
 
 export const Post = ({ item, isEditable }) => {
 
-    const [isLiked, setIsLiked] = useState(item.isLiked);
+    const [isLiked, setIsLiked] = useState(item.is_liked);
 
     const handleLike = () => {
-        item.isLiked = !item.isLiked;
-        setIsLiked(item.isLiked);
+        if (item.is_liked) {
+            item.likes--;
+        } else {
+            item.likes++;
+        }
+        likePost({ post_pk: item.pk }).then(
+            res => {
+                item.is_liked = !item.is_liked;
+                setIsLiked(item.is_liked);
+            }).catch(err => { })
+
     }
 
     return (

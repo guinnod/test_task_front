@@ -15,3 +15,7 @@ export const updatePost = (data) => {
 export const deletePost = (data) => {
     return axios.delete('my-posts', { data: data })
 }
+
+export const likePost = (data) => {
+    return axios.post('like', data)
+}

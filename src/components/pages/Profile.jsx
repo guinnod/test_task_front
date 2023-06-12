@@ -5,7 +5,9 @@ import useScreenType from "react-screentype-hook";
 import { deletePost, getUserPosts, updatePost } from "@api/postAPI";
 import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "@/context/HomeContext";
+
 export const Profile = () => {
+
   const items = [
     {
       key: '1',
@@ -20,27 +22,29 @@ export const Profile = () => {
   ];
 
   const { myPosts, setMyPosts } = useContext(HomeContext);
+  const { isMobile } = useScreenType();
+  const [messageApi, contextHolder] = message.useMessage();
+
   useEffect(() => {
     getUserPosts()
       .then(res => {
         setMyPosts(res.data)
       })
       .catch(err => {
-
+        messageApi.error(err.response.data, 3);
       })
   }, [])
-  const { isMobile } = useScreenType();
-  const [messageApi, contextHolder] = message.useMessage();
+
   const confirmDelete = (id) => {
-    deletePost({post_pk: id})
-    .then(res=> {
-      setMyPosts(res.data)
-    })
-    .catch(err=> {
-      messageApi.error(err.response.data, 3);
-    })
+    deletePost({ post_pk: id })
+      .then(res => {
+        setMyPosts(res.data)
+      })
+      .catch(err => {
+        messageApi.error(err.response.data, 3);
+      })
   }
-  
+
   return (
     <section className="pt-5 px-5 overflow-y-scroll max-h-full">
       {contextHolder}
@@ -53,7 +57,7 @@ export const Profile = () => {
         itemLayout="vertical"
         className={`pt-5 ${isMobile ? 'px-0' : 'px-10'}`}
         dataSource={myPosts}
-        renderItem={(item) => (<EditablePost item={item} confirmDelete={confirmDelete} confirmEdit={updatePost}/>)}
+        renderItem={(item) => (<EditablePost item={item} confirmDelete={confirmDelete} confirmEdit={updatePost} />)}
       />
     </section>
   )

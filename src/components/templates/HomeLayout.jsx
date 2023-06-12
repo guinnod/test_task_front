@@ -7,10 +7,9 @@ import useScreenType from "react-screentype-hook";
 import { PostCreator } from "@components/molecules/PostCreator";
 import { HomeContext } from "@/context/HomeContext";
 const { Header, Sider, Content, Footer } = Layout
+
 export const HomeLayout = () => {
-  const [theme, setTheme] = useState("light");
-  const location = useLocation();
-  const defaultKeys = location.pathname.includes("profile") ? ['1'] : ['2'];
+
   const items = [
     {
       key: '1',
@@ -31,18 +30,24 @@ export const HomeLayout = () => {
       label: <Link to="/logout">Log out</Link>
     }
   ];
-  const { isMobile } = useScreenType();
 
+  const [theme, setTheme] = useState("light");
+  const location = useLocation();
+  const defaultKeys = location.pathname.includes("profile") ? ['1'] : ['2'];
+  const { isMobile } = useScreenType();
   const [isPostCreate, setIsPostCreate] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const [myPosts, setMyPosts] = useState([]);
+
+
   const tooglePostCreate = () => {
     setIsPostCreate(!isPostCreate);
   }
-  const [messageApi, contextHolder] = message.useMessage();
-  const [myPosts, setMyPosts] = useState([]);
+
   return (
-    <HomeContext.Provider value={{ 
+    <HomeContext.Provider value={{
       messageApi, myPosts, setMyPosts
-     }}>
+    }}>
       {contextHolder}
       <PostCreator open={isPostCreate} onCancel={tooglePostCreate} />
       <Layout className="h-full">

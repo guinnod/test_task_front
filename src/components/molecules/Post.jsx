@@ -1,24 +1,29 @@
 import { LikeOutlined, LikeFilled } from '@ant-design/icons';
-import { Avatar, Button, List, Popconfirm, Spin } from 'antd';
-import { IconText } from '@components/atoms/IconText';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { useContext, useState } from 'react';
+import { Avatar, Button, List, Popconfirm, Spin } from 'antd';
 import useScreenType from 'react-screentype-hook';
+import { IconText } from '@components/atoms/IconText';
 import { HomeContext } from '@/context/HomeContext';
+import { useContext, useState } from 'react';
 
 export const Post = ({ item, isEditable }) => {
+
     const [isLiked, setIsLiked] = useState(item.isLiked);
+
     const handleLike = () => {
         item.isLiked = !item.isLiked;
         setIsLiked(item.isLiked);
     }
+
     return (
         <List.Item
             key={item.title}
             style={{ position: 'relative' }}
             actions={[
-                <IconText icon={isLiked ? <LikeFilled onClick={handleLike} /> :
-                    <LikeOutlined onClick={handleLike} />}
+                <IconText icon={isLiked ?
+                    <LikeFilled onClick={handleLike} /> :
+                    <LikeOutlined onClick={handleLike} />
+                }
                     text={item.likes} key="list-vertical-like-o" />,
             ]} >
             <List.Item.Meta
@@ -32,8 +37,11 @@ export const Post = ({ item, isEditable }) => {
 };
 
 export const EditablePost = ({ item, confirmDelete, confirmEdit }) => {
-    const { messageApi } = useContext(HomeContext)
-    const [spinning, setSpinning] = useState(false)
+
+    const { messageApi } = useContext(HomeContext);
+    const [spinning, setSpinning] = useState(false);
+    const { isMobile } = useScreenType();
+
     const updatePost = (value, id) => {
         setSpinning(true)
         let ancient = item.text
@@ -52,8 +60,10 @@ export const EditablePost = ({ item, confirmDelete, confirmEdit }) => {
     }
     const paragraph = <Paragraph editable={{
         onChange: (value) => { updatePost(value, item.pk) }
-    }}>{item.text}</Paragraph>;
-    const { isMobile } = useScreenType();
+    }}>
+        {item.text}
+    </Paragraph>;
+
 
     const deleteBlock =
         <div style={{
@@ -65,14 +75,15 @@ export const EditablePost = ({ item, confirmDelete, confirmEdit }) => {
                 title="Confrim"
                 description="Delete this post?"
                 onConfirm={() => { confirmDelete(item.pk) }}
-                onOpenChange={() => console.log('open change')}
             >
                 <Button size='small' danger>Delete</Button>
             </Popconfirm>
         </div>;
+
     return (
         <Spin size='large' spinning={spinning}>
-            <Post item={item} isLiked={item.isLiked} isEditable={{ paragraph: paragraph, delete: deleteBlock }} />
+            <Post item={item} isLiked={item.isLiked}
+                isEditable={{ paragraph: paragraph, delete: deleteBlock }} />
         </Spin>
     );
 };

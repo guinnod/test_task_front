@@ -3,8 +3,10 @@ import { useEffect, useState } from "react"
 import axios from "@services/axios"
 
 export const Protected = () => {
-    const [loading, setLoading] = useState(true)
-    const [isAuthorized, setIsAuthorized] = useState(false)
+
+    const [loading, setLoading] = useState(true);
+    const [isAuthorized, setIsAuthorized] = useState(false);
+
     useEffect(() => {
         axios.get('user-data')
         .then(res=> {
@@ -18,6 +20,7 @@ export const Protected = () => {
         })
             
     }, [isAuthorized, loading])
+    
     return (
         loading ? <div>Loading...</div> : isAuthorized ? <Outlet /> : <Navigate to="/login" replace />
     )

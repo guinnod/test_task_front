@@ -1,9 +1,9 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
 import { Logo } from '@components/atoms/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { register } from '@api/auth';
 import { useState } from 'react';
 
@@ -20,18 +20,25 @@ const validationSchema = Yup.object().shape({
 
 export const Register = () => {
     const [loading, setLoading] = useState(false);
+    const [messageApi, contextHolder] = message.useMessage();
+    let navigate = useNavigate();
     const handleSubmit = () => {
         setLoading(true);
         register(formik.values)
-        .then(res=> {
-            window.location.href = "/login"
-        })
-        .catch(err=> {
-
-        })
-        .finally(()=> {
-            setLoading(false)
-        })
+            .then(res => {
+                navigate("/login", { replace: true })
+            })
+            .catch(err => {
+                console.log(err);
+                messageApi.open({
+                    type: 'error',
+                    content: err.response?.data,
+                    duration: 3
+                })
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }
     const formik = useFormik({
         initialValues: {
@@ -44,6 +51,8 @@ export const Register = () => {
     });
     const INPUT_SIZE = 'large';
     return (
+        <>
+        {contextHolder}
         <main className="flex flex-col h-full justify-center gap-10 items-center">
             <Logo />
             <div className="w-full max-w-sm">
@@ -100,5 +109,6 @@ export const Register = () => {
                 </Form>
             </div>
         </main>
+        </>
     )
 }

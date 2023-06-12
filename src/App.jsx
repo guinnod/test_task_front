@@ -6,6 +6,7 @@ import { Home } from "@components/pages/Home"
 import { NotFound } from "@components/pages/NotFound"
 import { Login } from "@components/pages/Login"
 import { Profile } from "@components/pages/Profile"
+import { Logout } from "@components/pages/Logout"
 
 function App() {
 
@@ -13,10 +14,11 @@ function App() {
     <Routes>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
-      <Route path="/" element={<HomeLayout />}>
-        <Route element={<Protected />}>
+      <Route element={<Protected />}>
+        <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="logout" element={<Logout />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

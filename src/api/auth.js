@@ -1,4 +1,5 @@
 import axios from "@/services/axios";
+
 export const login = (data) => {
     return axios.post('login', data)
 }

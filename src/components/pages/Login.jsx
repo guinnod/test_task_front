@@ -3,7 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import * as Yup from "yup";
 import { useFormik } from 'formik';
 import { Logo } from '@components/atoms/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { login } from '@api/auth';
 
@@ -14,6 +14,7 @@ const validationSchema = Yup.object().shape({
 });
 
 export const Login = () => {
+    let navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const INPUT_SIZE = 'large';
@@ -21,9 +22,8 @@ export const Login = () => {
         setLoading(true);
         login(formik.values)
             .then(res => {
-                console.log(res);
                 localStorage.setItem("access", res.data.access)
-                window.open("/")
+                navigate("/")
             })
             .catch(err => {
                 console.log(err);

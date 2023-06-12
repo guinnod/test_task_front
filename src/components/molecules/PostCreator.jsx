@@ -29,6 +29,7 @@ export const PostCreator = ({ open, onCancel }) => {
                         if (location.pathname.includes('profile')) {
                             getUserPosts()
                                 .then(res => {
+                                    onCancel()
                                     setMyPosts(res.data)
                                 })
                                 .catch(err => {
@@ -46,7 +47,6 @@ export const PostCreator = ({ open, onCancel }) => {
                         })
                     })
                     .finally(() => {
-
                         setLoading(false)
                     })
             })

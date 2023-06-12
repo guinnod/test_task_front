@@ -2,7 +2,7 @@ import { Avatar, List, Menu, Typography, message } from "antd";
 import { UserOutlined, LikeOutlined, SolutionOutlined } from '@ant-design/icons';
 import { EditablePost, Post } from "@components/molecules/Post";
 import useScreenType from "react-screentype-hook";
-import { deletePost, getUserPosts } from "@api/postAPI";
+import { deletePost, getUserPosts, updatePost } from "@api/postAPI";
 import { useContext, useEffect, useState } from "react";
 import { HomeContext } from "@/context/HomeContext";
 export const Profile = () => {
@@ -37,7 +37,7 @@ export const Profile = () => {
       setMyPosts(res.data)
     })
     .catch(err=> {
-      
+      messageApi.error(err.response.data, 3);
     })
   }
   
@@ -53,7 +53,7 @@ export const Profile = () => {
         itemLayout="vertical"
         className={`pt-5 ${isMobile ? 'px-0' : 'px-10'}`}
         dataSource={myPosts}
-        renderItem={(item) => (<EditablePost item={item} confirmDelete={confirmDelete}/>)}
+        renderItem={(item) => (<EditablePost item={item} confirmDelete={confirmDelete} confirmEdit={updatePost}/>)}
       />
     </section>
   )

@@ -2,8 +2,9 @@ import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import { Avatar, Button, List, Popconfirm, Spin } from 'antd';
 import { IconText } from '@components/atoms/IconText';
 import Paragraph from 'antd/es/typography/Paragraph';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import useScreenType from 'react-screentype-hook';
+import { HomeContext } from '@/context/HomeContext';
 
 export const Post = ({ item, isEditable }) => {
     const [isLiked, setIsLiked] = useState(item.isLiked);
@@ -30,14 +31,27 @@ export const Post = ({ item, isEditable }) => {
     );
 };
 
-export const EditablePost = ({ item, confirmDelete }) => {
+export const EditablePost = ({ item, confirmDelete, confirmEdit }) => {
+    const { messageApi } = useContext(HomeContext)
     const [spinning, setSpinning] = useState(false)
-    const deletePost = () => {
+    const updatePost = (value, id) => {
         setSpinning(true)
-        setTimeout(() => { setSpinning(false) }, 3000)
+        let ancient = item.text
+        item.text = value
+        confirmEdit({ post_pk: id, content: value })
+            .then(res => {
+                messageApi.success(res.data, 3);
+            })
+            .catch(err => {
+                messageApi.error(err.response.data, 3);
+                item.text = ancient
+            })
+            .finally(() => {
+                setSpinning(false);
+            })
     }
     const paragraph = <Paragraph editable={{
-        onEnd: () => { deletePost(); }
+        onChange: (value) => { updatePost(value, item.pk) }
     }}>{item.text}</Paragraph>;
     const { isMobile } = useScreenType();
 

@@ -36,10 +36,7 @@ export const HomeLayout = () => {
   const tooglePostCreate = () => {
     setIsPostCreate(!isPostCreate);
   }
-
-  useEffect(() => {
-    // document.getElementById("scrolledContent").scrollTo(0, 0);
-  }, [location])
+  
   return (
     <>
       <PostCreator open={isPostCreate} onCancel={tooglePostCreate} />

@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import { useFormik } from 'formik';
 import { Logo } from '@components/atoms/Logo';
 import { Link } from 'react-router-dom';
+import { register } from '@api/auth';
+import { useState } from 'react';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Incorrect email format!").required("Please enter your email!"),
@@ -17,7 +19,20 @@ const validationSchema = Yup.object().shape({
 });
 
 export const Register = () => {
+    const [loading, setLoading] = useState(false);
+    const handleSubmit = () => {
+        setLoading(true);
+        register(formik.values)
+        .then(res=> {
+            window.location.href = "/login"
+        })
+        .catch(err=> {
 
+        })
+        .finally(()=> {
+            setLoading(false)
+        })
+    }
     const formik = useFormik({
         initialValues: {
             email: "", password: "", repeatPassword: ""
@@ -25,7 +40,7 @@ export const Register = () => {
         validationSchema: validationSchema,
         validateOnBlur: true,
         validateOnChange: false,
-        onSubmit: () => { console.log('Finish!'); }
+        onSubmit: handleSubmit
     });
     const INPUT_SIZE = 'large';
     return (
@@ -72,7 +87,7 @@ export const Register = () => {
 
                     <Form.Item className="w-full">
                         <Button className="mt-2 bg-sky-400 text-white hover:bg-sky-500 w-full" htmlType='submit'
-                            type='ghost'
+                            type='ghost' loading={loading}
                             size={INPUT_SIZE}>Sign up</Button>
                     </Form.Item>
                     <div className="w-full">

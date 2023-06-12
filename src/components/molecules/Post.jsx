@@ -17,10 +17,11 @@ export const Post = ({ item, isEditable }) => {
             style={{ position: 'relative' }}
             actions={[
                 <IconText icon={isLiked ? <LikeFilled onClick={handleLike} /> :
-                    <LikeOutlined onClick={handleLike} />} text={item.likes} key="list-vertical-like-o" />,
+                    <LikeOutlined onClick={handleLike} />}
+                    text={item.likes} key="list-vertical-like-o" />,
             ]} >
             <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
+                avatar={< Avatar src={item.avatar} />}
                 title={<a href={item.href}>{item.title}</a>}
             />
             {isEditable?.paragraph ?? item.content}
@@ -44,19 +45,21 @@ export const EditablePost = ({ item }) => {
     }}>{item.content}</Paragraph>;
     const { isMobile } = useScreenType();
 
-    const deleteBlock = <div style={{ position: 'absolute', 
-    top: isMobile ? 'auto' : 15, right: 20,
-    bottom: isMobile ? 15 : 'auto'
-    }}>
-        <Popconfirm
-            title="Confrim"
-            description="Delete this post?"
-            onConfirm={confirm}
-            onOpenChange={() => console.log('open change')}
-        >
-            <Button size='small' danger>Delete</Button>
-        </Popconfirm>
-    </div>;
+    const deleteBlock =
+        <div style={{
+            position: 'absolute',
+            top: isMobile ? 'auto' : 15, right: 20,
+            bottom: isMobile ? 15 : 'auto'
+        }}>
+            <Popconfirm
+                title="Confrim"
+                description="Delete this post?"
+                onConfirm={confirm}
+                onOpenChange={() => console.log('open change')}
+            >
+                <Button size='small' danger>Delete</Button>
+            </Popconfirm>
+        </div>;
     return (
         <Spin size='large' spinning={spinning}>
             <Post item={item} isLiked={item.isLiked} isEditable={{ paragraph: paragraph, delete: deleteBlock }} />

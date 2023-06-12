@@ -38,7 +38,7 @@ export const HomeLayout = () => {
   const [isPostCreate, setIsPostCreate] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [myPosts, setMyPosts] = useState([]);
-
+  
 
   const tooglePostCreate = () => {
     setIsPostCreate(!isPostCreate);

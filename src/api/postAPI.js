@@ -1,5 +1,9 @@
 import axios from "@/services/axios";
 
+export const allPosts = (data) => {
+    return axios.get('posts', data)
+}
+
 export const getUserPosts = () => {
     return axios.get('my-posts')
 }
